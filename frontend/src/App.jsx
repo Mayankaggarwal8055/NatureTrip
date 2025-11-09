@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { Route, Routes } from "react-router-dom";
-import Booking from "./pages/booking";
+import Booking from "./pages/Booking";
 import Home from "./pages/Home";
 import ConfirmationPage from "./components/ConfirmationPage/ConfirmationPage";
 import SignUpPage from "./pages/signUpPage/signUpPage";
