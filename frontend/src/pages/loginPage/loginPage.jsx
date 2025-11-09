@@ -29,7 +29,7 @@ const LoginPage = () => {
 
       } else {
         
-        navigate("/");
+        navigate("/"); 
       }
 
       window.location.reload();
