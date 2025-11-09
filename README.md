@@ -1,4 +1,4 @@
-###🌿 NatureTrip – Flight Booking Engine
+**🌿 NatureTrip – Flight Booking Engine**
 
 NatureTrip is a modern, full-stack flight booking engine built with React, Node.js, Express, and Prisma.
 It delivers a seamless travel experience through real-time flight search, fare comparison, traveler management, and secure payment processing, all wrapped in a clean, minimal, and responsive UI inspired by top-tier travel platforms.
@@ -60,7 +60,7 @@ backend/
 
 🧪 Installation & Setup
 # Clone the repository
-- git clone https://github.com/your-username/naturetrip.git
+- git clone https://github.com/Mayankaggarwal8055/naturetrip.git
 - cd naturetrip
 
 # Install dependencies
