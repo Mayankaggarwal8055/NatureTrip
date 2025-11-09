@@ -5,7 +5,6 @@ const cors = require('cors')
 const cookieParser = require('cookie-parser');
 // const bodyParser = require('body-parser');
 const travellerRoutes = require('./routes/traveller&flight')
-const flightRoutes = require('./routes/flights');
 const PaymentOrderRoute = require('./routes/paymentOrder')
 const paymentSuccessRoute = require('./routes/paymentsuccess');
 const SignUpRoute = require('./routes/signUp');
@@ -24,7 +23,6 @@ app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 app.use(cookieParser());
 // app.use(bodyParser.json());
 app.use('/api/traveller', travellerRoutes);
-app.use('/api/flights', flightRoutes);
 app.use('/api/payment/order', PaymentOrderRoute);
 app.use('/api/payment/Success', paymentSuccessRoute)
 app.use('/api/SignUp', SignUpRoute)

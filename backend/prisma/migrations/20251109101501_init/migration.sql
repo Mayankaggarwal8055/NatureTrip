@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE "public"."UserRecord" (
+CREATE TABLE "UserRecord" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE "public"."UserRecord" (
 );
 
 -- CreateTable
-CREATE TABLE "public"."UserProfile" (
+CREATE TABLE "UserProfile" (
     "userId" TEXT NOT NULL,
     "firstName" TEXT,
     "lastName" TEXT,
@@ -25,7 +25,7 @@ CREATE TABLE "public"."UserProfile" (
 );
 
 -- CreateTable
-CREATE TABLE "public"."Traveller" (
+CREATE TABLE "Traveller" (
     "id" TEXT NOT NULL,
     "firstName" TEXT NOT NULL,
     "lastName" TEXT NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE "public"."Traveller" (
 );
 
 -- CreateTable
-CREATE TABLE "public"."PaymentOrder" (
+CREATE TABLE "PaymentOrder" (
     "id" TEXT NOT NULL,
     "razorpayId" TEXT NOT NULL,
     "travellerId" TEXT NOT NULL,
@@ -60,7 +60,7 @@ CREATE TABLE "public"."PaymentOrder" (
 );
 
 -- CreateTable
-CREATE TABLE "public"."FlightOffer" (
+CREATE TABLE "FlightOffer" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "tripType" TEXT NOT NULL,
@@ -75,7 +75,7 @@ CREATE TABLE "public"."FlightOffer" (
 );
 
 -- CreateTable
-CREATE TABLE "public"."Segment" (
+CREATE TABLE "Segment" (
     "id" TEXT NOT NULL,
     "flightOfferId" TEXT NOT NULL,
     "departure" TEXT,
@@ -91,40 +91,40 @@ CREATE TABLE "public"."Segment" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "UserRecord_name_key" ON "public"."UserRecord"("name");
+CREATE UNIQUE INDEX "UserRecord_name_key" ON "UserRecord"("name");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "UserRecord_email_key" ON "public"."UserRecord"("email");
+CREATE UNIQUE INDEX "UserRecord_email_key" ON "UserRecord"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "UserProfile_mobile_key" ON "public"."UserProfile"("mobile");
+CREATE UNIQUE INDEX "UserProfile_mobile_key" ON "UserProfile"("mobile");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "UserProfile_passport_key" ON "public"."UserProfile"("passport");
+CREATE UNIQUE INDEX "UserProfile_passport_key" ON "UserProfile"("passport");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Traveller_ticketNumber_key" ON "public"."Traveller"("ticketNumber");
+CREATE UNIQUE INDEX "Traveller_ticketNumber_key" ON "Traveller"("ticketNumber");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "PaymentOrder_razorpayId_key" ON "public"."PaymentOrder"("razorpayId");
+CREATE UNIQUE INDEX "PaymentOrder_razorpayId_key" ON "PaymentOrder"("razorpayId");
 
 -- AddForeignKey
-ALTER TABLE "public"."UserProfile" ADD CONSTRAINT "UserProfile_userId_fkey" FOREIGN KEY ("userId") REFERENCES "public"."UserRecord"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "UserProfile" ADD CONSTRAINT "UserProfile_userId_fkey" FOREIGN KEY ("userId") REFERENCES "UserRecord"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "public"."Traveller" ADD CONSTRAINT "Traveller_userId_fkey" FOREIGN KEY ("userId") REFERENCES "public"."UserRecord"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Traveller" ADD CONSTRAINT "Traveller_userId_fkey" FOREIGN KEY ("userId") REFERENCES "UserRecord"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "public"."PaymentOrder" ADD CONSTRAINT "PaymentOrder_travellerId_fkey" FOREIGN KEY ("travellerId") REFERENCES "public"."Traveller"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "PaymentOrder" ADD CONSTRAINT "PaymentOrder_travellerId_fkey" FOREIGN KEY ("travellerId") REFERENCES "Traveller"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "public"."PaymentOrder" ADD CONSTRAINT "PaymentOrder_flightOfferId_fkey" FOREIGN KEY ("flightOfferId") REFERENCES "public"."FlightOffer"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "PaymentOrder" ADD CONSTRAINT "PaymentOrder_flightOfferId_fkey" FOREIGN KEY ("flightOfferId") REFERENCES "FlightOffer"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "public"."PaymentOrder" ADD CONSTRAINT "PaymentOrder_userId_fkey" FOREIGN KEY ("userId") REFERENCES "public"."UserRecord"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "PaymentOrder" ADD CONSTRAINT "PaymentOrder_userId_fkey" FOREIGN KEY ("userId") REFERENCES "UserRecord"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "public"."FlightOffer" ADD CONSTRAINT "FlightOffer_userId_fkey" FOREIGN KEY ("userId") REFERENCES "public"."UserRecord"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "FlightOffer" ADD CONSTRAINT "FlightOffer_userId_fkey" FOREIGN KEY ("userId") REFERENCES "UserRecord"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "public"."Segment" ADD CONSTRAINT "Segment_flightOfferId_fkey" FOREIGN KEY ("flightOfferId") REFERENCES "public"."FlightOffer"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Segment" ADD CONSTRAINT "Segment_flightOfferId_fkey" FOREIGN KEY ("flightOfferId") REFERENCES "FlightOffer"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
