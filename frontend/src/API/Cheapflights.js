@@ -2,7 +2,7 @@ import axios from "axios";
 
 const handleCheapFlight = async (flightData) => {
     try {
-        const response = await axios.get('http://localhost:4444/api/flights/search', {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/flights/search`, {
             params: {
                 origin: flightData.from,
                 destination: flightData.to,

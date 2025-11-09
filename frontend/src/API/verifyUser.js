@@ -1,6 +1,6 @@
 const verifyUser = async () => {
     try {
-        const res = await fetch("http://localhost:4444/api/verify", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/verify`, {
             method: "GET",
             credentials: "include",
         });

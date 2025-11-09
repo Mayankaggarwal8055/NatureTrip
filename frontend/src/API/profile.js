@@ -4,7 +4,7 @@ const profileData = async (updatedProfileData, userId) => {
     
     try {
 
-        const res = await fetch('http://localhost:4444/api/profileData', {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/profileData`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ updatedProfileData, userId })

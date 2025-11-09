@@ -2,7 +2,7 @@ const verifyPayment = async (orderId, razorpay_order_id, razorpay_payment_id, ra
 
     try {
 
-        const res = await fetch('http://localhost:4444/api/payment/Success', {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/payment/Success`, {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify({
