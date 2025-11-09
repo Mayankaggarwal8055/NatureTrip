@@ -32,8 +32,6 @@ const LoginPage = () => {
         navigate("/");
       }
 
-      window.location.reload();
-
 
 
     } catch (err) {
