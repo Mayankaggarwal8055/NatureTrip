@@ -1,0 +1,141 @@
+:root {
+  --bg: #f5f8fa;
+  --card: rgba(255, 255, 255, 0.7);
+  --text: #1a2537;
+  --muted: #6b7280;
+  --primary: #2fd29c;
+  --primary-hover: #23b68a;
+  --border: rgba(200, 210, 220, 0.3);
+  --shadow: rgba(0, 0, 0, 0.08);
+}
+
+.profileContainer {
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f4faf7 0%, #eef4f9 100%);
+  font-family: "Poppins", sans-serif;
+  color: var(--text);
+  animation: fadeIn 0.6s ease;
+}
+
+/* Sidebar */
+.profileSidebar {
+  width: 230px;
+  backdrop-filter: blur(18px);
+  background: var(--card);
+  border-right: 1px solid var(--border);
+  box-shadow: 8px 0 24px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1.8rem 1.4rem;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  animation: slideIn 0.6s ease-out;
+}
+
+.profileSidebar h2 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1rem;
+  letter-spacing: 0.4px;
+}
+
+.profileSidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.profileSidebar li {
+  padding: 0.55rem 0.9rem;
+  font-size: 0.88rem;
+  border-radius: 8px;
+  margin-bottom: 0.4rem;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.profileSidebar li:hover {
+  background: rgba(47, 210, 156, 0.08);
+  color: var(--primary);
+  transform: translateX(3px);
+}
+
+.active {
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 8px 20px rgba(47, 210, 156, 0.3);
+}
+
+/* Main */
+.profileMain {
+  flex: 1;
+  padding: 2rem 2.5rem;
+  animation: fadeUp 0.6s ease;
+  overflow-y: auto;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 900px) {
+  .profileContainer {
+    flex-direction: column;
+  }
+
+  .profileSidebar {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 1rem;
+    backdrop-filter: blur(12px);
+  }
+
+  .profileSidebar h2 {
+    display: none;
+  }
+
+  .profileSidebar li {
+    font-size: 0.8rem;
+  }
+}

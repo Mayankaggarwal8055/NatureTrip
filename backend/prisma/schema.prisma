@@ -1,0 +1,119 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// =================== USERS ===================
+
+model UserRecord {
+  id           String          @id @default(uuid())
+  name         String          @unique
+  email        String          @unique
+  password     String
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+
+  travellers   Traveller[]     @relation("UserTravellers")
+  payments     PaymentOrder[]  @relation("UserPayments")
+  flightOffers FlightOffer[]   @relation("UserFlightOffers")
+
+  profile      UserProfile?
+}
+
+model UserProfile {
+  userId      String     @id
+  firstName   String?
+  lastName    String?
+  gender      String?
+  dob         DateTime?
+  mobile      String?    @unique
+  passport    String?    @unique
+  expiryDate  DateTime?
+
+  user        UserRecord @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// =================== TRAVELLER ===================
+
+model Traveller {
+  id           String   @id @default(uuid())
+  firstName    String
+  lastName     String
+  gender       String
+  countryCode  String
+  mobileNumber String
+  email        String
+  gstNumber    String?
+  state        String
+  ticketNumber String?  @unique
+  status       String   @default("pending")
+  createdAt    DateTime @default(now())
+
+  userId       String
+  user         UserRecord @relation("UserTravellers", fields: [userId], references: [id])
+
+
+  paymentOrders PaymentOrder[]
+}
+
+// =================== PAYMENT ORDERS ===================
+
+model PaymentOrder {
+  id            String   @id @default(uuid())
+  razorpayId    String   @unique
+  travellerId   String
+  flightOfferId  String
+  userId        String
+  amount        Int
+  status        String
+  receipt       String
+  paymentId     String?
+  createdAt     DateTime @default(now())
+
+  traveller     Traveller @relation(fields: [travellerId], references: [id])
+  flightOffer    FlightOffer @relation(fields: [flightOfferId], references: [id])
+  user          UserRecord @relation("UserPayments", fields: [userId], references: [id])
+}
+
+model FlightOffer {
+  id                  String      @id @default(uuid())
+  userId              String
+  tripType            String
+  baseFare            Float?
+  totalFare           Float?
+  currency            String?
+  lastTicketingDate   DateTime?
+  travelerPricings    String? // Assuming you're storing this as JSON
+  rawFlightData       String? // Assuming you're storing this as JSON
+  segments            Segment[]
+
+  paymentOrders   PaymentOrder[]
+  user                UserRecord  @relation("UserFlightOffers", fields: [userId], references: [id])
+
+}
+
+model Segment {
+  id            String      @id @default(uuid())
+  flightOfferId String
+  departure     String?
+  arrival       String?
+  departureTime DateTime?
+  arrivalTime   DateTime?
+  carrierCode   String?
+  flightNumber  String?
+  aircraft      String?
+  duration      String?
+
+  flightOffer   FlightOffer @relation(fields: [flightOfferId], references: [id])
+}

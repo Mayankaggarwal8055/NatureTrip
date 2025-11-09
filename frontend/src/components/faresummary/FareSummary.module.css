@@ -1,0 +1,156 @@
+/* FareSummary.module.css */
+/* Now fully adapted to the Traveller dark theme */
+
+.container {
+  position: sticky;
+  top: 16px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  padding: 18px;
+  max-width: 340px;
+  width: 100%;
+  color: var(--text, #e2e8f0);
+}
+
+.heading {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  color: var(--text, #f8fafc);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14px;
+  padding: 8px 0;
+  color: var(--text, #e2e8f0);
+}
+
+.label {
+  color: black;
+}
+
+.value {
+  color: var(--text, #f1f5f9);
+}
+
+.hr {
+  border: none;
+  height: 1px;
+  background: rgba(148, 163, 184, 0.18);
+  margin: 8px 0 4px;
+}
+
+.discount .label {
+  color: #22c55e;
+}
+
+.discount .value {
+  color: #22c55e;
+}
+
+.total {
+  margin-top: 6px;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(148, 163, 184, 0.25);
+}
+
+.totalLabel {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text, #f8fafc);
+}
+
+.totalValue {
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--text, #f8fafc);
+}
+
+/* Coupons block */
+.coupons {
+  margin-top: 14px;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  text-align: left;
+  color: var(--text, #e2e8f0);
+}
+
+.couponHeading {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text, #f8fafc);
+  margin: 0 0 10px 0;
+}
+
+.inputRow {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.input {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(15, 23, 42, 0.6);
+  color: var(--text, #f8fafc);
+  outline: none;
+  transition: box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.input:focus {
+  border-color: rgba(59, 130, 246, 0.6);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.25);
+}
+
+.applyBtn {
+  white-space: nowrap;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(90deg, var(--ok, #10b981), #22c55e);
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.applyBtn:hover {
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+}
+
+.viewAll {
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #00a8e8, #0093cc);
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.viewAll:hover {
+  background: linear-gradient(90deg, #0093cc, #007fae);
+  transform: translateY(-1px);
+  box-shadow: 0 0 12px rgba(0, 168, 232, 0.45), 0 0 20px rgba(0, 147, 204, 0.25);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .container {
+    position: static;
+    max-width: 100%;
+  }
+}

@@ -1,0 +1,170 @@
+:root {
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #1e293b;
+    --muted: #64748b;
+    --primary: #2fd29c;
+    --primary-glow: rgba(47, 210, 156, 0.15);
+    --border: #e2e8f0;
+    --paid: #10b981;
+    --pending: #f59e0b;
+    --failed: #ef4444;
+}
+
+.wrap {
+    padding: 1.8rem 2rem;
+    animation: fadeIn 0.5s ease;
+}
+
+.headerBar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.2rem;
+}
+
+.title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+/* Card styling */
+.card {
+    background: var(--card);
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    padding: 1rem 1.2rem;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+    transition: all 0.25s ease;
+    font-size: 0.82rem;
+    color: var(--text);
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px var(--primary-glow);
+}
+
+/* Top bar */
+.cardTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.6rem;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+}
+
+.amount {
+    background: var(--primary);
+    color: #fff;
+    border-radius: 8px;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+
+.badge {
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.paid {
+    background: rgba(16, 185, 129, 0.12);
+    color: var(--paid);
+}
+
+.pending {
+    background: rgba(245, 158, 11, 0.12);
+    color: var(--pending);
+}
+
+.failed {
+    background: rgba(239, 68, 68, 0.12);
+    color: var(--failed);
+}
+
+.date {
+    font-size: 0.75rem;
+    color: var(--muted);
+}
+
+/* Flight details */
+.primaryRow {
+    margin-top: 0.5rem;
+}
+
+.route {
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 0.3rem;
+}
+
+.metaLine {
+    color: var(--muted);
+    font-size: 0.76rem;
+    line-height: 1.4;
+}
+
+.travellerRow {
+    margin-top: 0.6rem;
+    color: var(--muted);
+    font-size: 0.75rem;
+}
+
+.travellerRow span {
+    display: inline-block;
+    margin-right: 0.4rem;
+}
+
+/* Actions */
+.cardActions {
+    margin-top: 0.6rem;
+}
+
+.linkBtn {
+    background: none;
+    border: none;
+    color: var(--primary);
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.linkBtn:hover {
+    text-decoration: underline;
+    color: var(--primary);
+}
+
+/* Empty state */
+.empty {
+    color: var(--muted);
+    font-size: 0.82rem;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

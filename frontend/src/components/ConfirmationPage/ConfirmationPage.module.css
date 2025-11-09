@@ -1,0 +1,226 @@
+.page {
+  min-height: 100vh;
+  width: 100%;
+  background: radial-gradient(circle at top right, #e3f2ff 0%, #f5f9ff 40%, #ffffff 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  font-family: "Poppins", sans-serif;
+  position: relative;
+}
+
+/* Floating background particles */
+.page::before {
+  content: "";
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(circle at 30% 20%, rgba(115, 182, 255, 0.3), transparent 70%),
+    radial-gradient(circle at 80% 60%, rgba(173, 216, 255, 0.25), transparent 70%);
+  z-index: 0;
+  animation: floatGlow 8s ease-in-out infinite alternate;
+  filter: blur(40px);
+}
+
+@keyframes floatGlow {
+  from {
+    transform: scale(1) translateY(0px);
+    opacity: 0.9;
+  }
+
+  to {
+    transform: scale(1.05) translateY(10px);
+    opacity: 1;
+  }
+}
+
+/* ===================== CONFETTI & CENTER ===================== */
+.center {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  animation: fadeIn 1s ease;
+}
+
+.confetti {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  animation: confettiBurst 3s both ease-out;
+  background: none;
+}
+
+@keyframes confettiBurst {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  15% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  80% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+/* ===================== TEXT ===================== */
+.congratsText {
+  font-size: 3.4rem;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  background: linear-gradient(90deg, #0ea5e9, #2563eb, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 4px 22px rgba(59, 130, 246, 0.2);
+  margin-top: 100px;
+  animation: popUp 1s ease forwards;
+}
+
+@keyframes popUp {
+  from {
+    transform: scale(0.9) translateY(10px);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.congratsSub {
+  font-size: 1.2rem;
+  color: #334155;
+  margin-top: 10px;
+  letter-spacing: 0.02em;
+  opacity: 0.9;
+  animation: fadeInSub 1.6s ease forwards;
+}
+
+@keyframes fadeInSub {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===================== ACTION BUTTONS ===================== */
+.actionsRow {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+}
+
+.button,
+.buttonAlt {
+  border-radius: 12px;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 700;
+  box-shadow: 0 6px 28px -6px rgba(91, 141, 199, 0.25);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  padding: 13px 30px;
+  width: min(320px, 70vw);
+}
+
+/* Primary button – gradient shine */
+.button {
+  background: linear-gradient(92deg, #4f8cff 0%, #7c5cff 60%, #9e62ff 100%);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.25), transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.button:hover::after {
+  transform: translateX(100%);
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+  box-shadow: 0 8px 25px rgba(91, 141, 199, 0.35);
+}
+
+/* Secondary button – minimal frosted look */
+.buttonAlt {
+  background: rgba(255, 255, 255, 0.85);
+  color: #2563eb;
+  border: 1.8px solid #7da9d9;
+  backdrop-filter: blur(10px);
+}
+
+.buttonAlt:hover {
+  background: #7da9d9;
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(91, 141, 199, 0.25);
+}
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 600px) {
+  .congratsText {
+    font-size: 2.3rem;
+    margin-top: 60px;
+  }
+
+  .congratsSub {
+    font-size: 1.05rem;
+  }
+
+  .button,
+  .buttonAlt {
+    width: 90vw;
+    padding: 12px 5vw;
+  }
+
+  .actionsRow {
+    gap: 12px;
+  }
+}
+
+/* ===================== FADE ANIMATION ===================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

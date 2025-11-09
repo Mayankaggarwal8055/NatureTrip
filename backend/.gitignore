@@ -1,0 +1,44 @@
+# --- Node & Environment ---
+node_modules/
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# --- Build Output ---
+dist/
+build/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- Prisma Generated Files ---
+/prisma/generated/
+/src/generated/prisma/
+/src/generated/client/
+/generated/
+
+# --- Coverage & Cache ---
+coverage/
+.cache/
+.tmp/
+*.tmp
+*.temp
+
+# --- IDE / Editor Config ---
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- System Files ---
+.DS_Store
+Thumbs.db
+
+# --- OS & Misc ---
+*.bak
+*.lock
+*.pid

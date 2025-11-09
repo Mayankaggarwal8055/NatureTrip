@@ -1,0 +1,86 @@
+:root {
+  --bg: #f8fafc;
+  --card: rgba(255, 255, 255, 0.85);
+  --text: #1e293b;
+  --muted: #64748b;
+  --primary: #2fd29c;
+  --border: #e2e8f0;
+}
+
+.userFlightsContainer {
+  padding: 1.8rem;
+  animation: fadeUp 0.5s ease;
+}
+
+.userFlightsTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1.2rem;
+}
+
+.flightGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.flightCard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1rem;
+  font-size: 0.84rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s ease;
+}
+
+.flightCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(47, 210, 156, 0.15);
+}
+
+.flightCardHeader {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  margin-bottom: 0.4rem;
+}
+
+.flightNumber {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.flightPrice {
+  font-weight: 700;
+  color: #0f5132;
+}
+
+.city {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.time {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.noFlights {
+  color: var(--muted);
+  text-align: center;
+  font-size: 0.85rem;
+  margin-top: 1rem;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
