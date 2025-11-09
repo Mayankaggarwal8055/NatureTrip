@@ -1,18 +1,19 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import './loginPage.css';
-import loginData from "../../API/login"; // <-- you’ll create this API function similar to signUpData
+import "./loginPage.css";
+import { AuthContext } from "../../context/authContext";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false); // ✅ NEW
   const navigate = useNavigate();
+
+  const { login } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setEmail("")
-    setPassword("")
     setError("");
 
     if (!email || !password) {
@@ -21,24 +22,14 @@ const LoginPage = () => {
     }
 
     try {
-      const response = await loginData({ email, password });
-      
-
-      if (response.error) {
-        setError(response.error);
-
-      } else {
-        
-        navigate("/");  
-      }
-
-      window.location.reload();
-
-
-
+      setLoading(true); // ✅ Start loader
+      await login({ email, password });
+      navigate("/");
     } catch (err) {
       setError("Something went wrong. Please try again.");
       console.error(err);
+    } finally {
+      setLoading(false); // ✅ Stop loader
     }
   };
 
@@ -71,7 +62,15 @@ const LoginPage = () => {
           />
         </div>
 
-        <button type="submit">Login</button>
+        <button type="submit" disabled={loading}>
+          {loading ? (
+            <>
+              <span className="spinner"></span> Logging in...
+            </>
+          ) : (
+            "Login"
+          )}
+        </button>
       </form>
 
       <p className="signup-link">
