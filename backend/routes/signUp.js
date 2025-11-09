@@ -6,7 +6,7 @@ const { PrismaClient } = require('../src/generated/prisma');
 const prisma = new PrismaClient();
 
 router.post('/', async (req, res) => {
-   
+
 
     try {
 
@@ -30,10 +30,11 @@ router.post('/', async (req, res) => {
 
         res.cookie('token', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'lax',
-            maxAge: 86400000
-        })
+            secure: true, // must always be true for cross-site cookies
+            sameSite: 'None', // REQUIRED for cross-site cookies
+            maxAge: 86400000,
+        });
+
 
         const user = await prisma.userRecord.findUnique({
             where: { id: userRecord.id },
