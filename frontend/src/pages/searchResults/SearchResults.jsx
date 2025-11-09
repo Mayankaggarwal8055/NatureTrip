@@ -5,7 +5,7 @@ import FlightCardForRound from "../../components/FlightCard/FlightCardForRound/F
 import BookingModalforRound from "../../components/BookingModal/bookingModalforRound/bookingModalforRound";
 import BookingModalOneWay from "../../components/BookingModal/bookingModelOneWay/bookingModelOneWay";
 import FlightCardForOneWay from "../../components/FlightCard/FlightCardForOneWay/FlightCardForOneWay";
-import styles from "./searchResults.module.css";
+import styles from "./SearchResults.module.css";
 
 const SearchResults = () => {
   const location = useLocation();
