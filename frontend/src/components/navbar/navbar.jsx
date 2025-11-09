@@ -32,10 +32,6 @@ const Navbar = () => {
       )}
 
       <div className={styles.navLinks}>
-        <NavLink to="/Booking" className={({ isActive }) =>
-          `${styles.link} ${isActive ? styles.active : ""}`}>
-          Booking
-        </NavLink>
 
         {isAuthenticated ? (
           <NavLink to="/Profile" className={({ isActive }) =>

@@ -1,6 +1,5 @@
 import { Fragment } from "react";
 import { Route, Routes } from "react-router-dom";
-import Booking from "./pages/Booking";
 import Home from "./pages/Home";
 import ConfirmationPage from "./components/ConfirmationPage/ConfirmationPage";
 import SignUpPage from "./pages/signUpPage/signUpPage";
@@ -20,7 +19,6 @@ const App = () => {
     <Fragment>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/Booking" element={<Booking />} />
         <Route path="/Profile" element={<ProfilePage user={user} />} />
         <Route path="/results" element={<SearchResults />} />
         <Route path='/results/TravellerDetails' element={<TravellerDetails />} />
