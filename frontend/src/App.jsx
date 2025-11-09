@@ -14,8 +14,6 @@ import ProfileBadges from "./components/profileBadges/ProfileBadges";
 const App = () => {
 
   const { user } = useSelector((state) => state.user);
-  console.log("heloo");
-  
 
 
   return (

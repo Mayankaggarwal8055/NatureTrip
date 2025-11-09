@@ -14,9 +14,9 @@ const profileUpdatedDataRoute = require('./routes/profileUpdatedData')
 const CheapflightsRoute = require('./routes/Cheapflights')
 
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: ['https://nature-trip.vercel.app'],
   credentials: true
-}))
+}));
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
