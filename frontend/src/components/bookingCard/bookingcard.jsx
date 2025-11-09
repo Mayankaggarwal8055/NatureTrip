@@ -1,6 +1,6 @@
 import { Fragment, useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "./bookingcard.module.css";
+import styles from "./Bookingcard.module.css";
 import handleCheapFlight from "../../API/Cheapflights";
 
 const Bookingcard = () => {

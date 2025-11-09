@@ -1,5 +1,5 @@
 // ProfileTravellers.jsx
-import styles from './profileTravellers.module.css';
+import styles from './ProfileTravellers.module.css';
 
 const formatMoney = (amount, currency = 'INR') => {
   const locale =

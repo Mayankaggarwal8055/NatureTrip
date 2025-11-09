@@ -1,4 +1,4 @@
-import styles from './myProfile.module.css';
+import styles from './MyProfile.module.css';
 import { useReducer } from "react";
 import profileData from '../../API/profile.js';
 

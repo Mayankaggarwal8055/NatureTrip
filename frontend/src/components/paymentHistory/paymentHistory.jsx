@@ -1,7 +1,7 @@
 // components/paymentHistory/paymentHistory.jsx
 import { useMemo, useRef } from 'react';
 import html2canvas from 'html2canvas';
-import styles from './paymentHistory.module.css';
+import styles from './PaymentHistory.module.css';
 
 // Currency formatter with ₹ for INR
 const money = (amt, cur = 'INR') => {

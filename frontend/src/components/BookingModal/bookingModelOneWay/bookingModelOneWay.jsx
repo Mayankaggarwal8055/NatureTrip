@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from "react";
-import styles from "./bookingModelOneWay.module.css"; // You can reuse BookingModalforRound.module.css
+import styles from "./BookingModelOneWay.module.css"; // You can reuse BookingModalforRound.module.css
 
 const BookingModalOneWay = ({ isOpen, onClose, flight, onContinue }) => {
   const [selectedFareType, setSelectedFareType] = useState("economy"); // economy | business
