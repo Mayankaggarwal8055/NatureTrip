@@ -1,24 +1,20 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
+  "type": "commonjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prisma:deploy": "npx prisma migrate deploy && npx prisma generate",
+    "start": "npm run prisma:deploy && node app.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
     "@faker-js/faker": "^10.0.0",
     "@prisma/client": "^6.16.2",
     "amadeus": "^11.0.0",
     "bcrypt": "^6.0.0",
-    "body-parser": "^2.2.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "csv-parse": "^6.1.0",
-    "data-fns": "^1.1.0",
     "date-fns": "^4.1.0",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
