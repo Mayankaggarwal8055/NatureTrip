@@ -60,7 +60,7 @@ const TravellerDetails = () => {
         return "";
       case "mobileNumber":
         if (!value.trim()) return "Mobile number is required.";
-        if (!/^\\d{10}$/.test(value)) return "Use 10 digits.";
+        if (!/^\\d{10}$/.test(value)) return "Use 10 digits";
         return "";
       case "gstNumber":
         if (!value.trim()) return "GST number is required.";
