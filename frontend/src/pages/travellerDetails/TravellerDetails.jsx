@@ -55,7 +55,7 @@ const TravellerDetails = () => {
         return "";
       case "email":
         if (!value.trim()) return "Email is required.";
-        if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$/.test(value))
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value))
           return "Enter a valid email.";
         return "";
       case "mobileNumber":
