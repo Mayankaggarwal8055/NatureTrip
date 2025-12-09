@@ -1,9 +1,11 @@
+// src/pages/TravellerDetails/TravellerDetails.jsx
 import React, { useReducer, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./TravellerDetails.module.css";
 import FareSummary from "../../components/faresummary/fareSummary";
 import HandleSubmitTraveller from "../../API/Submittraveller";
 import paymentFunction from "../../services/paymentFunction";
+import LoginRequiredModal from "../../components/common/LoginRequiredModal";
 
 const EmptyData = {
   firstName: "",
@@ -34,11 +36,16 @@ const states = [
   "Telangana",
 ];
 
-const TravellerDetails = () => {
+const TravellerDetails = ({ user }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { fareSelection, tripType, originalFlights } = location.state || {};
   const flight = { fareSelection, tripType, originalFlights };
+
+  // If no user, show modal (blocks page). Login button inside modal redirects to /login.
+  if (!user) {
+    return <LoginRequiredModal open={true} onClose={() => navigate("/")} />;
+  }
 
   const [state, dispatch] = useReducer(Reducer, EmptyData);
   const [errors, setErrors] = useState({});
@@ -154,6 +161,7 @@ const TravellerDetails = () => {
       </div>
 
       <div className={styles.layout}>
+        {/* Left Column */}
         <main className={styles.left}>
           <section className={styles.card}>
             <div className={styles.cardHeader}>
@@ -161,11 +169,9 @@ const TravellerDetails = () => {
               <span className={styles.pill}>Adult 1</span>
             </div>
 
-            <form
-              onSubmit={HandleSubmit}
-              noValidate
-              className={styles.travellerInput}
-            >
+            {/* Form */}
+            <form onSubmit={HandleSubmit} noValidate className={styles.travellerInput}>
+              {/* ===== Traveller Info ===== */}
               <fieldset className={styles.grid3}>
                 <div className={styles.field}>
                   <label htmlFor="firstName">First & Middle Name</label>
@@ -308,6 +314,7 @@ const TravellerDetails = () => {
 
               <div className={styles.hr}></div>
 
+              {/* ===== Booking Contact ===== */}
               <fieldset className={styles.grid3}>
                 <legend className={styles.legend}>
                   Booking details will be sent to
@@ -330,7 +337,6 @@ const TravellerDetails = () => {
                 </div>
                 <div className={styles.field}>
                   <label htmlFor="sendMobileNumber">Mobile No</label>
-                  {/* Important: keep name="mobileNumber" so validation is shared */}
                   <input
                     type="tel"
                     id="sendMobileNumber"
@@ -357,6 +363,7 @@ const TravellerDetails = () => {
 
               <div className={styles.hr}></div>
 
+              {/* ===== GST Section ===== */}
               <fieldset className={styles.grid3}>
                 <div className={styles.rowFull}>
                   <label className={styles.checkbox}>
@@ -395,6 +402,7 @@ const TravellerDetails = () => {
 
               <div className={styles.hr}></div>
 
+              {/* ===== State & Save Traveller ===== */}
               <fieldset className={styles.grid3}>
                 <div className={styles.field}>
                   <label htmlFor="state">Your State</label>
@@ -430,6 +438,7 @@ const TravellerDetails = () => {
                 </div>
               </fieldset>
 
+              {/* ===== Submit Button ===== */}
               <div className={styles.actions}>
                 <button
                   type="submit"
@@ -450,6 +459,7 @@ const TravellerDetails = () => {
           </section>
         </main>
 
+        {/* Right Column - Fare Summary */}
         <aside className={styles.right}>
           <div className={styles.sticky}>
             <FareSummary flight={flight} />
