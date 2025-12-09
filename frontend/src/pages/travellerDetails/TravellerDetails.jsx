@@ -43,7 +43,7 @@ const TravellerDetails = () => {
   const [state, dispatch] = useReducer(Reducer, EmptyData);
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
-  const [loading, setLoading] = useState(false); // ✅ loader state
+  const [loading, setLoading] = useState(false);
 
   // Validation logic
   const validateField = (name, value) => {
@@ -51,7 +51,7 @@ const TravellerDetails = () => {
       case "firstName":
       case "lastName":
         if (!value.trim()) return "This field is required.";
-        if (!/^[a-zA-Z\\s'.-]{2,}$/.test(value)) return "Use 2+ letters only.";
+        if (!/^[a-zA-Z\s'.-]{2,}$/.test(value)) return "Use 2+ letters only.";
         return "";
       case "email":
         if (!value.trim()) return "Email is required.";
@@ -72,6 +72,26 @@ const TravellerDetails = () => {
     }
   };
 
+  // Validate all required fields before submit
+  const validateAll = () => {
+    const toValidate = ["firstName", "lastName", "email", "mobileNumber"];
+    if (state.hasGst) toValidate.push("gstNumber");
+
+    const newErrors = {};
+    toValidate.forEach((f) => {
+      newErrors[f] = validateField(f, state[f]) || "";
+    });
+
+    setErrors((prev) => ({ ...prev, ...newErrors }));
+    // mark all as touched so errors show up
+    const newTouched = {};
+    toValidate.forEach((f) => (newTouched[f] = true));
+    setTouched((t) => ({ ...t, ...newTouched }));
+
+    // If any message non-empty, invalid
+    return Object.values(newErrors).every((msg) => msg === "");
+  };
+
   // Validation on blur
   const handleBlur = (e) => {
     const { name, value } = e.target;
@@ -80,11 +100,37 @@ const TravellerDetails = () => {
     setErrors((er) => ({ ...er, [name]: msg }));
   };
 
+  // Unified change handler that sanitizes and re-validates the field immediately
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    let val = value;
+
+    if (name === "mobileNumber") {
+      // keep digits only
+      val = value.replace(/\D/g, "");
+    } else if (name === "gstNumber") {
+      val = value.toUpperCase();
+    }
+
+    dispatch({ type: name, val });
+
+    // re-validate on change so the error disappears as soon as input becomes valid
+    const msg = validateField(name, val);
+    setErrors((er) => ({ ...er, [name]: msg }));
+  };
+
   // Form submit handler
   const HandleSubmit = async (e) => {
     e.preventDefault();
 
-    setLoading(true); // ✅ show loader
+    // run full validation
+    const isValid = validateAll();
+    if (!isValid) {
+      // do not proceed to payment
+      return;
+    }
+
+    setLoading(true);
     try {
       const BookingData = await HandleSubmitTraveller(state, flight);
       await paymentFunction(BookingData, navigate);
@@ -92,7 +138,7 @@ const TravellerDetails = () => {
       console.error("Error while submitting traveller:", err);
       alert("Something went wrong while processing payment. Please try again.");
     } finally {
-      setLoading(false); // ✅ hide loader if paymentFunction fails
+      setLoading(false);
     }
   };
 
@@ -100,7 +146,6 @@ const TravellerDetails = () => {
 
   return (
     <div className={styles.page}>
-      {/* Login Notice */}
       <div className={styles.notice}>
         Offers can be applied after login.{" "}
         <button className={styles.loginLink} onClick={handleLogin}>
@@ -109,7 +154,6 @@ const TravellerDetails = () => {
       </div>
 
       <div className={styles.layout}>
-        {/* Left Column */}
         <main className={styles.left}>
           <section className={styles.card}>
             <div className={styles.cardHeader}>
@@ -117,13 +161,11 @@ const TravellerDetails = () => {
               <span className={styles.pill}>Adult 1</span>
             </div>
 
-            {/* Form */}
             <form
               onSubmit={HandleSubmit}
               noValidate
               className={styles.travellerInput}
             >
-              {/* ===== Traveller Info ===== */}
               <fieldset className={styles.grid3}>
                 <div className={styles.field}>
                   <label htmlFor="firstName">First & Middle Name</label>
@@ -132,9 +174,7 @@ const TravellerDetails = () => {
                     id="firstName"
                     name="firstName"
                     value={state.firstName}
-                    onChange={(e) =>
-                      dispatch({ type: "firstName", val: e.target.value })
-                    }
+                    onChange={handleChange}
                     onBlur={handleBlur}
                     aria-invalid={!!errors.firstName && touched.firstName}
                     aria-describedby="firstName-error"
@@ -154,9 +194,7 @@ const TravellerDetails = () => {
                     id="lastName"
                     name="lastName"
                     value={state.lastName}
-                    onChange={(e) =>
-                      dispatch({ type: "lastName", val: e.target.value })
-                    }
+                    onChange={handleChange}
                     onBlur={handleBlur}
                     aria-invalid={!!errors.lastName && touched.lastName}
                     aria-describedby="lastName-error"
@@ -218,12 +256,7 @@ const TravellerDetails = () => {
                     id="mobileNumber"
                     name="mobileNumber"
                     value={state.mobileNumber}
-                    onChange={(e) =>
-                      dispatch({
-                        type: "mobileNumber",
-                        val: e.target.value.replace(/\D/g, ""),
-                      })
-                    }
+                    onChange={handleChange}
                     onBlur={handleBlur}
                     aria-invalid={!!errors.mobileNumber && touched.mobileNumber}
                     aria-describedby="mobileNumber-error"
@@ -243,9 +276,7 @@ const TravellerDetails = () => {
                     id="email"
                     name="email"
                     value={state.email}
-                    onChange={(e) =>
-                      dispatch({ type: "email", val: e.target.value })
-                    }
+                    onChange={handleChange}
                     onBlur={handleBlur}
                     aria-invalid={!!errors.email && touched.email}
                     aria-describedby="email-error"
@@ -277,7 +308,6 @@ const TravellerDetails = () => {
 
               <div className={styles.hr}></div>
 
-              {/* ===== Booking Contact ===== */}
               <fieldset className={styles.grid3}>
                 <legend className={styles.legend}>
                   Booking details will be sent to
@@ -300,16 +330,16 @@ const TravellerDetails = () => {
                 </div>
                 <div className={styles.field}>
                   <label htmlFor="sendMobileNumber">Mobile No</label>
+                  {/* Important: keep name="mobileNumber" so validation is shared */}
                   <input
                     type="tel"
                     id="sendMobileNumber"
+                    name="mobileNumber"
                     value={state.mobileNumber}
-                    onChange={(e) =>
-                      dispatch({
-                        type: "mobileNumber",
-                        val: e.target.value.replace(/\D/g, ""),
-                      })
-                    }
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    aria-invalid={!!errors.mobileNumber && touched.mobileNumber}
+                    aria-describedby="mobileNumber-error"
                   />
                 </div>
                 <div className={styles.field}>
@@ -317,17 +347,16 @@ const TravellerDetails = () => {
                   <input
                     type="email"
                     id="sendEmail"
+                    name="email"
                     value={state.email}
-                    onChange={(e) =>
-                      dispatch({ type: "email", val: e.target.value })
-                    }
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                   />
                 </div>
               </fieldset>
 
               <div className={styles.hr}></div>
 
-              {/* ===== GST Section ===== */}
               <fieldset className={styles.grid3}>
                 <div className={styles.rowFull}>
                   <label className={styles.checkbox}>
@@ -350,12 +379,7 @@ const TravellerDetails = () => {
                       id="gstNumber"
                       name="gstNumber"
                       value={state.gstNumber}
-                      onChange={(e) =>
-                        dispatch({
-                          type: "gstNumber",
-                          val: e.target.value.toUpperCase(),
-                        })
-                      }
+                      onChange={handleChange}
                       onBlur={handleBlur}
                       aria-invalid={!!errors.gstNumber && touched.gstNumber}
                       aria-describedby="gstNumber-error"
@@ -371,7 +395,6 @@ const TravellerDetails = () => {
 
               <div className={styles.hr}></div>
 
-              {/* ===== State & Save Traveller ===== */}
               <fieldset className={styles.grid3}>
                 <div className={styles.field}>
                   <label htmlFor="state">Your State</label>
@@ -407,7 +430,6 @@ const TravellerDetails = () => {
                 </div>
               </fieldset>
 
-              {/* ===== Submit Button ===== */}
               <div className={styles.actions}>
                 <button
                   type="submit"
@@ -428,7 +450,6 @@ const TravellerDetails = () => {
           </section>
         </main>
 
-        {/* Right Column - Fare Summary */}
         <aside className={styles.right}>
           <div className={styles.sticky}>
             <FareSummary flight={flight} />
