@@ -6,29 +6,16 @@ async function getAirportCode(cityName) {
   try {
     const response = await amadeus.referenceData.locations.get({
       keyword: cityName,
-      subType: 'CITY,AIRPORT',
-      "page[limit]": 5
+      subType: 'CITY,AIRPORT'
     });
 
-    if (!response.data || response.data.length === 0) {
-      console.log("No data found for:", cityName);
-      return null;
-    }
-
-    return response.data[0].iataCode;
-
+    
+    // Find first city match with an IATA code
+    const city = response.data.find(loc => loc.subType === 'CITY' || loc.subType === 'AIRPORT');
+    return city ? city.iataCode : null;
   } catch (error) {
-    console.error("Amadeus error:", error.response?.body || error.message);
-
-    // 🔥 IMPORTANT: fallback logic
-    const fallback = {
-      Delhi: "DEL",
-      Mumbai: "BOM",
-      London: "LHR",
-      Dubai: "DXB"
-    };
-
-    return fallback[cityName] || null;
+    console.error('Error fetching airport code:', error);
+    return null;
   }
 }
 

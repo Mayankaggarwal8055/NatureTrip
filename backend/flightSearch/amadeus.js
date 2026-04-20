@@ -5,7 +5,7 @@ require('dotenv').config();
 const amadeus = new Amadeus({
     clientId: process.env.AMADEUS_CLIENT_ID,
     clientSecret: process.env.AMADEUS_CLIENT_SECRET,
-    // hostname: 'production' // Uncomment for live
+    hostname: 'production'
 });
 
 module.exports = amadeus;
