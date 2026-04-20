@@ -81,9 +81,7 @@ backend/
 ---
 
 - 🛠️ Future Enhancements
-- ✈️ Add hotel + cab booking integration
 - 🧭 Implement route optimization and multi-leg flight planning
-- 🌍 Add AI-based fare prediction
 - 📱 Launch progressive web app (PWA) version
 
 🤝 **Contributing**
