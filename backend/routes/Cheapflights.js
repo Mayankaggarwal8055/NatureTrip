@@ -8,6 +8,8 @@ async function getAirportCode(cityName) {
       keyword: cityName,
       subType: 'CITY,AIRPORT'
     });
+
+    
     // Find first city match with an IATA code
     const city = response.data.find(loc => loc.subType === 'CITY' || loc.subType === 'AIRPORT');
     return city ? city.iataCode : null;
@@ -22,8 +24,8 @@ router.get('/', async (req, res) => {
     let { origin, destination, departureDate, returnDate } = req.query;
 
     // Convert city names to airport codes if needed
-    origin = await getAirportCode(origin);
-    destination = await getAirportCode(destination);
+    // origin = await getAirportCode(origin);
+    // destination = await getAirportCode(destination);
 
     if (!origin || !destination) {
       return res.status(400).json({ error: 'Invalid city name provided' });
@@ -31,8 +33,8 @@ router.get('/', async (req, res) => {
 
     // Build params dynamically
     const params = {
-      originLocationCode: origin,
-      destinationLocationCode: destination,
+      originLocationCode,
+      destinationLocationCode,
       departureDate,
       adults: '1',
       max: 20
