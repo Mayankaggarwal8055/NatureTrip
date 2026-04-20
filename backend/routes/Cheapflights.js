@@ -24,8 +24,8 @@ router.get('/', async (req, res) => {
     let { origin, destination, departureDate, returnDate } = req.query;
 
     // Convert city names to airport codes if needed
-    // origin = await getAirportCode(origin);
-    // destination = await getAirportCode(destination);
+    origin = await getAirportCode(origin);
+    destination = await getAirportCode(destination);
 
     if (!origin || !destination) {
       return res.status(400).json({ error: 'Invalid city name provided' });
@@ -33,8 +33,8 @@ router.get('/', async (req, res) => {
 
     // Build params dynamically
     const params = {
-      originLocationCode,
-      destinationLocationCode,
+      originLocationCode: origin,
+      destinationLocationCode: destination,
       departureDate,
       adults: '1',
       max: 20
